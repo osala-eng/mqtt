@@ -1,20 +1,24 @@
 #!/bin/bash
 
-# Install and setup MQTT broker in a linux machine.
+# Check for root user
 
-MOSQUITTO_USER=$1
-MOSQUITTO_PASSWD=$2
+if [ $(id -u) -ne 0 ]; then
+    echo "Please run as root user"
+    exit 1
+fi
+
+# Install and setup MQTT broker in a linux machine.
 
 # Install mosquitto
 
-sudo apt-get update
-sudo apt-get install mosquitto mosquitto-clients -y
+apt-get update
+apt-get install mosquitto mosquitto-clients -y
 
 # Start mosquitto service
 
-sudo systemctl enable mosquitto
-sudo systemctl start mosquitto
+systemctl enable mosquitto
+systemctl start mosquitto
 
 # Check mosquitto status
 
-sudo systemctl status mosquitto
+systemctl status mosquitto
